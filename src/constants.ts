@@ -1,0 +1,1 @@
+export const IMAGE_URL_PATH = 'https://image.tmdb.org/t/p/original/'
