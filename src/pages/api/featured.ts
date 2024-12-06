@@ -5,12 +5,22 @@ const FEATURED_FILM =
   "https://api.themoviedb.org/3/movie/now_playing?api_key=6f26fd536dd6192ec8a57e94141f8b20";
 
 type Data = {
-  name: string;
+  film?: any
+  message?: string;
+  name?: string;
 };
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>,
 ) {
-  res.status(200).json({ name: "John Doe" });
+  try{
+    const response = await fetch(FEATURED_FILM)
+    const jsonRes = await response.json()
+  
+    return res.status(200).json({ film: jsonRes.results });
+  }catch(e){
+    console.log(e)
+    res.status(401).send({message:"An error ocurred"})
+  }
 }
